@@ -4,10 +4,10 @@ const fs = require("fs");
 const mysql = require("mysql2");
 
 const migrate = () => {
-  const { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
+  const { DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 
   const connection = mysql.createConnection({
-    host: DB_HOST,
+    host: "localhost",
     user: DB_USER,
     password: DB_PASSWORD,
     multipleStatements: true,
