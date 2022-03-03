@@ -7,9 +7,10 @@ const migrate = () => {
   const { DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 
   const connection = mysql.createConnection({
-    host: "localhost",
+    host: "srv-captain--database-db",
     user: DB_USER,
     password: DB_PASSWORD,
+    port: 3306,
     multipleStatements: true,
   });
 
