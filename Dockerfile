@@ -21,6 +21,6 @@ RUN npm install
 
 COPY . .
 
-CMD [ "npm", "run", "migrate" ]
+RUN npm run migrate
 
 CMD [ "npm", "start" ]
