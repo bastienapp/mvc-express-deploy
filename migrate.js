@@ -1,28 +1,27 @@
 require("dotenv").config();
 
 const fs = require("fs");
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 
-const migrate = () => {
+const migrate = async () => {
   const { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 
-  const connection = mysql.createConnection({
+  const connection = await mysql.createPool({
     host: DB_HOST,
     user: DB_USER,
     password: DB_PASSWORD,
     multipleStatements: true,
   });
 
-  const sql = `${
-    `DROP DATABASE IF EXISTS \`${DB_NAME}\`;\n` +
-    `CREATE DATABASE \`${DB_NAME}\`;\n` +
-    `USE \`${DB_NAME}\`;\n`
-  }${fs.readFileSync("./database.sql", "utf8")}`;
+  await connection.query(`DROP DATABASE IF EXISTS \`${DB_NAME}\``);
+  await connection.query(`CREATE DATABASE \`${DB_NAME}\``);
+  await connection.query(`USE \`${DB_NAME}\``);
 
-  connection.query(sql, (err) => {
-    console.log(err || "Migration success");
-    connection.end();
-  });
+  const sql = fs.readFileSync("./database.sql", "utf8");
+
+  await connection.query(sql);
+
+  connection.end();
 };
 
 try {
