@@ -14,9 +14,9 @@ const migrate = () => {
   });
 
   const sql = `${
-    `drop database if exists ${DB_NAME};\n` +
-    `create database ${DB_NAME};\n` +
-    `use ${DB_NAME};\n`
+    `drop database if exists \`${DB_NAME}\`;\n` +
+    `create database \`${DB_NAME}\`;\n` +
+    `use \`${DB_NAME}\`;\n`
   }${fs.readFileSync("./database.sql", "utf8")}`;
 
   connection.query(sql, (err) => {
