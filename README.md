@@ -1,4 +1,4 @@
-# MVC Express - Deployment
+# MVC Express
 
 ## Description
 
